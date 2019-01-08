@@ -5,23 +5,7 @@ import uniqid from 'uniqid'
 
 export default () => {
   const [state, setData] = useState({
-    todos: [
-      {
-        id: 1,
-        text: 'Do stuff',
-        isDone: false,
-      },
-      {
-        id: 2,
-        text: 'Call grandma',
-        isDone: false,
-      },
-      {
-        id: 3,
-        text: 'Fix kitchen sink',
-        isDone: false,
-      },
-    ],
+    todos: [],
     value: '',
   })
 
@@ -45,7 +29,6 @@ export default () => {
   }
 
   const handleToggle = (id, checked) => {
-    console.log(id)
     setData({
       todos: [
         ...state.todos.map(t => {
@@ -61,25 +44,31 @@ export default () => {
     })
   }
 
-  const { todos, value } = state
+  const handleRemove = id => {
+    setData({
+      todos: state.todos.filter(t => t.id !== id),
+      value: '',
+    })
+  }
 
   return (
     <>
       <ul>
-        {todos.map((t, i) => (
+        {state.todos.map(t => (
           <Todo
             id={t.id}
             text={t.text}
             key={t.id}
             isDone={t.isDone}
             handleToggle={handleToggle}
+            handleRemove={handleRemove}
           />
         ))}
       </ul>
       <Form
         handleChange={handleOnChange}
         handleSubmit={handleSubmit}
-        value={value}
+        value={state.value}
       />
     </>
   )

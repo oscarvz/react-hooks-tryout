@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default ({ id, text, isDone, handleToggle }) => (
+export default ({ id, text, isDone, handleToggle, handleRemove }) => (
   <li>
     <label>
       <input
@@ -10,5 +10,6 @@ export default ({ id, text, isDone, handleToggle }) => (
       />
       {text}
     </label>
+    <button onClick={() => handleRemove(id)}>remove</button>
   </li>
 )

@@ -1,12 +1,9 @@
-import React from 'react';
-import './App.css';
+import React from 'react'
 import Todos from './containers/Todos'
 
-const App = () => (
-  <div className='app'>
-    <h1>Hi.</h1>
+export default () => (
+  <div style={{ maxWidth: '300px', margin: '0 auto' }}>
+    <h1>Add stuff:</h1>
     <Todos />
   </div>
 )
-
-export default App;
