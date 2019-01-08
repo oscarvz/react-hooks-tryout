@@ -35,16 +35,22 @@ const Todos = () => {
     })
   }
 
+  const { todos, value } = state
+
   return (
     <>
       <ul>
-        {state.todos.map((t, i) => (
+        {todos.map((t, i) => (
           <li key={i} index={i}>
             {t.text}
           </li>
         ))}
       </ul>
-      <Form handleChange={handleOnChange} handleSubmit={handleSubmit} />
+      <Form
+        handleChange={handleOnChange}
+        handleSubmit={handleSubmit}
+        value={value}
+      />
     </>
   )
 }
