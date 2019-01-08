@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
+import Form from '../components/Form'
 
 const Todos = () => {
-  const [state, setTodos] = useState({
+  const [state, setData] = useState({
     todos: [
       {
         text: 'Do stuff',
@@ -15,13 +16,36 @@ const Todos = () => {
         text: 'Fix kitchen sink',
         isDone: false,
       },
-    ]
+    ],
+    value: '',
   })
 
+  const handleOnChange = e => {
+    setData({
+      todos: [...state.todos],
+      value: e.target.value,
+    })
+  }
+
+  const handleSubmit = e => {
+    e.preventDefault()
+    setData({
+      todos: [...state.todos, { text: state.value, isDone: false }],
+      value: '',
+    })
+  }
+
   return (
-    <ul>
-      {state.todos.map((t, i) => <li key={i} index={i}>{t.text}</li>)}
-    </ul>
+    <>
+      <ul>
+        {state.todos.map((t, i) => (
+          <li key={i} index={i}>
+            {t.text}
+          </li>
+        ))}
+      </ul>
+      <Form handleChange={handleOnChange} handleSubmit={handleSubmit} />
+    </>
   )
 }
 
