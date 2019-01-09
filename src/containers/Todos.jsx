@@ -51,8 +51,20 @@ export default () => {
     })
   }
 
+  const handleRemoveAll = () => {
+    setData({
+      todos: [],
+      value: '',
+    })
+  }
+
   return (
     <>
+      <Form
+        handleChange={handleOnChange}
+        handleSubmit={handleSubmit}
+        value={state.value}
+      />
       <ul>
         {state.todos.map(t => (
           <Todo
@@ -65,11 +77,12 @@ export default () => {
           />
         ))}
       </ul>
-      <Form
-        handleChange={handleOnChange}
-        handleSubmit={handleSubmit}
-        value={state.value}
-      />
+      <button
+        onClick={handleRemoveAll}
+        disabled={state.todos.length ? false : true}
+      >
+        Remove all
+      </button>
     </>
   )
 }
