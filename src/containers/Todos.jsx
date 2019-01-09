@@ -5,13 +5,13 @@ import uniqid from 'uniqid'
 
 export default () => {
   const [todos, setTodos] = useState([])
-  const [value, setValue] = useState('')
+  const [text, setText] = useState('')
 
   const handleSubmit = e => {
     e.preventDefault()
 
-    setTodos([...todos, { id: uniqid.time(), text: value, isDone: false }])
-    setValue('')
+    setTodos([...todos, { id: uniqid.time(), text, isDone: false }])
+    setText('')
   }
 
   const handleToggle = (id, checked) => {
@@ -30,9 +30,9 @@ export default () => {
   return (
     <>
       <Form
-        handleChange={e => setValue(e.target.value)}
+        handleChange={e => setText(e.target.value)}
         handleSubmit={handleSubmit}
-        value={value}
+        value={text}
       />
 
       <ul>
@@ -54,7 +54,7 @@ export default () => {
       >
         Remove selected
       </button>
-      
+
       <button
         onClick={() => setTodos([])}
         disabled={todos.length ? false : true}
