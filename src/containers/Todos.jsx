@@ -4,76 +4,37 @@ import Todo from '../components/Todo'
 import uniqid from 'uniqid'
 
 export default () => {
-  const [state, setData] = useState({
-    todos: [],
-    value: '',
-  })
-
-  const handleOnChange = e => {
-    setData({
-      todos: [...state.todos],
-      value: e.target.value,
-    })
-  }
+  const [todos, setTodos] = useState([])
+  const [value, setValue] = useState('')
 
   const handleSubmit = e => {
     e.preventDefault()
 
-    setData({
-      todos: [
-        ...state.todos,
-        { id: uniqid.time(), text: state.value, isDone: false },
-      ],
-      value: '',
-    })
+    setTodos([...todos, { id: uniqid.time(), text: value, isDone: false }])
+    setValue('')
   }
 
   const handleToggle = (id, checked) => {
-    setData({
-      todos: [
-        ...state.todos.map(t => {
-          if (t.id === id) {
-            return Object.assign({}, t, {
-              isDone: !checked,
-            })
-          }
-          return t
-        }),
-      ],
-      value: '',
-    })
+    setTodos([
+      ...todos.map(t => {
+        if (t.id === id) {
+          return Object.assign({}, t, {
+            isDone: !checked,
+          })
+        }
+        return t
+      }),
+    ])
   }
-
-  const handleRemove = id => {
-    setData({
-      todos: state.todos.filter(t => t.id !== id),
-      value: '',
-    })
-  }
-
-  const handleRemoveSelected = () => {
-    setData({
-      todos: state.todos.filter(t => !t.isDone),
-      value: '',
-    })
-  }
-
-  const handleRemoveAll = () => {
-    setData({
-      todos: [],
-      value: '',
-    })
-  }
-
-  const { todos, value } = state
 
   return (
     <>
       <Form
-        handleChange={handleOnChange}
+        handleChange={e => setValue(e.target.value)}
         handleSubmit={handleSubmit}
         value={value}
       />
+
       <ul>
         {todos.map(t => (
           <Todo
@@ -82,18 +43,20 @@ export default () => {
             key={t.id}
             isDone={t.isDone}
             handleToggle={handleToggle}
-            handleRemove={handleRemove}
+            handleRemove={id => setTodos(todos.filter(t => t.id !== id))}
           />
         ))}
       </ul>
+
       <button
-        onClick={handleRemoveSelected}
+        onClick={() => setTodos(todos.filter(t => !t.isDone))}
         disabled={todos.some(t => t.isDone) ? false : true}
       >
         Remove selected
       </button>
-      <button 
-        onClick={handleRemoveAll}
+      
+      <button
+        onClick={() => setTodos([])}
         disabled={todos.length ? false : true}
       >
         Remove all
