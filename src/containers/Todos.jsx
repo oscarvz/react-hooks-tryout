@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Form from '../components/Form'
 import Todo from '../components/Todo'
 import uniqid from 'uniqid'
@@ -6,6 +6,12 @@ import uniqid from 'uniqid'
 export default () => {
   const [todos, setTodos] = useState([])
   const [text, setText] = useState('')
+
+  useEffect(() => {
+    document.title = todos.length
+      ? `Todo List: you have ${todos.length} todos!`
+      : 'Todo List: you have no todos'
+  })
 
   const handleSubmit = e => {
     e.preventDefault()
