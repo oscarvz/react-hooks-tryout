@@ -33,6 +33,7 @@ export default () => {
         handleChange={e => setText(e.target.value)}
         handleSubmit={handleSubmit}
         value={text}
+        buttonAvailability={text.length ? false : true}
       />
 
       <ul>
