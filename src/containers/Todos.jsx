@@ -51,6 +51,13 @@ export default () => {
     })
   }
 
+  const handleRemoveSelected = () => {
+    setData({
+      todos: state.todos.filter(t => !t.isDone),
+      value: '',
+    })
+  }
+
   const handleRemoveAll = () => {
     setData({
       todos: [],
@@ -58,15 +65,17 @@ export default () => {
     })
   }
 
+  const { todos, value } = state
+
   return (
     <>
       <Form
         handleChange={handleOnChange}
         handleSubmit={handleSubmit}
-        value={state.value}
+        value={value}
       />
       <ul>
-        {state.todos.map(t => (
+        {todos.map(t => (
           <Todo
             id={t.id}
             text={t.text}
@@ -78,8 +87,14 @@ export default () => {
         ))}
       </ul>
       <button
+        onClick={handleRemoveSelected}
+        disabled={todos.some(t => t.isDone) ? false : true}
+      >
+        Remove selected
+      </button>
+      <button 
         onClick={handleRemoveAll}
-        disabled={state.todos.length ? false : true}
+        disabled={todos.length ? false : true}
       >
         Remove all
       </button>
