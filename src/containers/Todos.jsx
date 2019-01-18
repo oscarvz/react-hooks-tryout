@@ -21,16 +21,16 @@ export default () => {
   }
 
   const handleToggle = (id, checked) => {
-    setTodos([
-      ...todos.map(t => {
+    setTodos(
+      todos.map(t => {
         if (t.id === id) {
           return Object.assign({}, t, {
             isDone: !checked,
           })
         }
         return t
-      }),
-    ])
+      })
+    )
   }
 
   return (
