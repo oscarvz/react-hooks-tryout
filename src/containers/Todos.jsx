@@ -10,8 +10,8 @@ export default () => {
 
   useEffect(() => {
     document.title = todos.length
-      ? `Todo List: you have ${todos.length} todos!`
-      : 'Todo List: you have no todos'
+      ? `Todo List: ${todos.length} todo${todos.length > 1 ? 's' : ''}!`
+      : 'Todo List: no todos'
   })
 
   const handleSubmit = e => {
