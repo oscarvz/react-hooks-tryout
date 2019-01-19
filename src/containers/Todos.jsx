@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
+import TodosReducer from '../reducers/todos'
 import Form from '../components/Form'
 import Todo from '../components/Todo'
 import uniqid from 'uniqid'
 
 export default () => {
-  const [todos, setTodos] = useState([])
+  const [todos, dispatch] = useReducer(TodosReducer, [])
   const [text, setText] = useState('')
 
   useEffect(() => {
@@ -16,21 +17,11 @@ export default () => {
   const handleSubmit = e => {
     e.preventDefault()
 
-    setTodos([...todos, { id: uniqid.time(), text, isDone: false }])
+    dispatch({
+      type: 'ADD-TODO',
+      payload: { id: uniqid.time(), text, isDone: false },
+    })
     setText('')
-  }
-
-  const handleToggle = (id, checked) => {
-    setTodos([
-      ...todos.map(t => {
-        if (t.id === id) {
-          return Object.assign({}, t, {
-            isDone: !checked,
-          })
-        }
-        return t
-      }),
-    ])
   }
 
   return (
@@ -49,21 +40,25 @@ export default () => {
             text={t.text}
             key={t.id}
             isDone={t.isDone}
-            handleToggle={handleToggle}
-            handleRemove={id => setTodos(todos.filter(t => t.id !== id))}
+            handleToggle={(id, checked) =>
+              dispatch({ type: 'TOGGLE-TODO', payload: { id, checked } })
+            }
+            handleRemove={id =>
+              dispatch({ type: 'REMOVE-TODO', payload: { id } })
+            }
           />
         ))}
       </ul>
 
       <button
-        onClick={() => setTodos(todos.filter(t => !t.isDone))}
+        onClick={() => dispatch({ type: 'REMOVE-SELECTED' })}
         disabled={todos.some(t => t.isDone) ? false : true}
       >
         Remove selected
       </button>
 
       <button
-        onClick={() => setTodos([])}
+        onClick={() => dispatch({ type: 'REMOVE-ALL' })}
         disabled={todos.length ? false : true}
       >
         Remove all
