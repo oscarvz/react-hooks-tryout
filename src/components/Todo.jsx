@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ id, text, isDone, handleToggle, handleRemove }) => (
+const Todo = ({ id, text, isDone, handleToggle, handleRemove }) => (
   <li>
     <label>
       <input
@@ -13,3 +13,5 @@ export default ({ id, text, isDone, handleToggle, handleRemove }) => (
     <button onClick={() => handleRemove(id)}>remove</button>
   </li>
 );
+
+export default Todo;

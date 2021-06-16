@@ -4,7 +4,7 @@ import Form from '../components/Form';
 import Todo from '../components/Todo';
 import uniqid from 'uniqid';
 
-export default () => {
+const Todos = () => {
   const [todos, dispatch] = useReducer(TodosReducer, []);
   const [text, setText] = useState('');
 
@@ -66,3 +66,5 @@ export default () => {
     </>
   );
 };
+
+export default Todos;

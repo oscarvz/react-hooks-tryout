@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default ({ handleSubmit, handleChange, value, buttonAvailability }) => (
+const Form = ({ handleSubmit, handleChange, value, buttonAvailability }) => (
   <form onSubmit={handleSubmit}>
     <label htmlFor="textInput">
       <input id="textInput" type="text" onChange={handleChange} value={value} />
@@ -10,3 +10,5 @@ export default ({ handleSubmit, handleChange, value, buttonAvailability }) => (
     </button>
   </form>
 );
+
+export default Form;
