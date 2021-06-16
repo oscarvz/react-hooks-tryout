@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export default ({ id, text, isDone, handleToggle, handleRemove }) => (
   <li>
@@ -12,4 +12,4 @@ export default ({ id, text, isDone, handleToggle, handleRemove }) => (
     </label>
     <button onClick={() => handleRemove(id)}>remove</button>
   </li>
-)
+);

@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export default ({ handleSubmit, handleChange, value, buttonAvailability }) => (
   <form onSubmit={handleSubmit}>
@@ -9,4 +9,4 @@ export default ({ handleSubmit, handleChange, value, buttonAvailability }) => (
       Add todo
     </button>
   </form>
-)
+);

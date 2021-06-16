@@ -1,32 +1,32 @@
 function TodosReducer(initialState, { type, payload }) {
   switch (type) {
     case 'ADD-TODO':
-      return [...initialState, payload]
+      return [...initialState, payload];
 
     case 'TOGGLE-TODO':
       return [
-        ...initialState.map(t => {
+        ...initialState.map((t) => {
           if (t.id === payload.id) {
             return Object.assign({}, t, {
               isDone: !payload.checked,
-            })
+            });
           }
-          return t
+          return t;
         }),
-      ]
+      ];
 
     case 'REMOVE-TODO':
-      return initialState.filter(t => t.id !== payload.id)
+      return initialState.filter((t) => t.id !== payload.id);
 
     case 'REMOVE-SELECTED':
-      return initialState.filter(t => !t.isDone)
+      return initialState.filter((t) => !t.isDone);
 
     case 'REMOVE-ALL':
-      return []
+      return [];
 
     default:
-      return initialState
+      return initialState;
   }
 }
 
-export default TodosReducer
+export default TodosReducer;
